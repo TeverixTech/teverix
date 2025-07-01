@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💘 Feliz Aniversário, Amor 💘</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #ffe0f0, #fff5f9);
+      color: #4a0033;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    #envelope {
+      background: #ff6699;
+      color: white;
+      padding: 18px 36px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.5em;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+
+    #envelope:hover {
+      transform: scale(1.05);
+    }
+
+    .message-box {
+      display: none;
+      background: white;
+      padding: 25px 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 95%;
+      width: 450px;
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message-box img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .message-box p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+
+    #nextBtn {
+      padding: 10px 20px;
+      background: #ff3385;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .confetti span {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: hsl(var(--hue), 100%, 70%);
+      animation: fall 3s linear infinite;
+      opacity: 0.8;
+      border-radius: 50%;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.85em;
+      color: #aa4466;
+    }
+
+    @media (max-width: 500px) {
+      .message-box {
+        padding: 20px 15px;
+        width: 90%;
+      }
+
+      #envelope {
+        font-size: 1.2em;
+        padding: 15px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button id="envelope">📨 Abrir Cartinha</button>
+
+  <div class="confetti" id="confettiContainer"></div>
+
+  <div class="message-box" id="msgBox">
+    <img id="photo" src="" alt="Foto nossa">
+    <p id="messageText"></p>
+    <button id="nextBtn">➡ Próximo</button>
+  </div>
+
+  <footer>💌 Com todo meu amor, só pra você 🌹</footer>
+
+  <script>
+    const messages = [
+      "Hoje é seu dia, e eu só consigo pensar em como sou grato por ter você na minha vida.",
+      "Cada momento com você é um presente que o tempo me deu. Feliz Aniversário, meu amor!",
+      "Você me inspira, me acalma, me faz sorrir mesmo nos dias difíceis.",
+      "Se eu pudesse, guardaria todos os seus sorrisos num potinho. Mas prefiro vê-los ao vivo todos os dias.",
+      "Te amo mais do que palavras conseguem explicar. Feliz vida, minha flor. 🌷"
+    ];
+
+    const images = [
+      "img1.jpeg",
+      "img2.jpeg",
+      "img3.jpeg",
+      "img4.jpeg",
+      "img5.jpeg"
+    ];
+
+    const envelopeBtn = document.getElementById('envelope');
+    const msgBox = document.getElementById('msgBox');
+    const messageText = document.getElementById('messageText');
+    const nextBtn = document.getElementById('nextBtn');
+    const photo = document.getElementById('photo');
+    const confettiContainer = document.getElementById('confettiContainer');
+
+    let currentMsg = 0;
+
+    envelopeBtn.onclick = () => {
+      envelopeBtn.style.display = 'none';
+      msgBox.style.display = 'block';
+      showMessage();
+      startConfetti();
+    };
+
+    nextBtn.onclick = () => {
+      currentMsg++;
+      if (currentMsg < messages.length) {
+        showMessage();
+      } else {
+        nextBtn.style.display = 'none';
+        messageText.textContent = "E que venham muitos aniversários ao seu lado. Te amo!";
+        photo.style.display = "none";
+      }
+    };
+
+    function showMessage() {
+      messageText.textContent = messages[currentMsg];
+      photo.src = images[currentMsg];
+      photo.style.display = "block";
+    }
+
+    function startConfetti() {
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('span');
+        confetti.style.setProperty('--hue', Math.floor(Math.random() * 360));
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = -Math.random() * 20 + 'px';
+        confetti.style.animationDelay = Math.random() * 3 + 's';
+        confettiContainer.appendChild(confetti);
+      }
+    }
+  </script>
+</body>
+</html>
