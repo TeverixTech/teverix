@@ -1,207 +1,132 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>💘 Feliz Aniversário, Amor 💘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registrar Aluno</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #ffe0f0, #fff5f9);
-      color: #4a0033;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h2 {
       text-align: center;
-      overflow: hidden;
     }
-
-    #envelope {
-      background: #ff6699;
-      color: white;
-      padding: 18px 36px;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.5em;
-      cursor: pointer;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-      transition: transform 0.3s;
-    }
-
-    #envelope:hover {
-      transform: scale(1.05);
-    }
-
-    .message-box {
-      display: none;
-      background: white;
-      padding: 25px 20px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      max-width: 95%;
-      width: 450px;
-      position: relative;
-      z-index: 2;
-      animation: fadeIn 0.8s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .message-box img {
+    label, input, select, button {
+      display: block;
       width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      border-radius: 15px;
-      margin-bottom: 20px;
+      margin-top: 10px;
+      font-size: 16px;
     }
-
-    .message-box p {
-      font-size: 1.2em;
-      margin-bottom: 20px;
+    input, select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-
-    #nextBtn {
-      padding: 10px 20px;
-      background: #ff3385;
+    button {
+      background-color: #4CAF50;
       color: white;
       border: none;
-      border-radius: 8px;
-      font-size: 1em;
+      padding: 12px;
+      margin-top: 20px;
+      border-radius: 5px;
       cursor: pointer;
     }
-
-    .confetti {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
-    }
-
-    .confetti span {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: hsl(var(--hue), 100%, 70%);
-      animation: fall 3s linear infinite;
-      opacity: 0.8;
-      border-radius: 50%;
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(-10px) rotate(0deg);
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-      }
-    }
-
-    footer {
-      position: absolute;
-      bottom: 10px;
-      font-size: 0.85em;
-      color: #aa4466;
-    }
-
-    @media (max-width: 500px) {
-      .message-box {
-        padding: 20px 15px;
-        width: 90%;
-      }
-
-      #envelope {
-        font-size: 1.2em;
-        padding: 15px 25px;
-      }
+    button:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
 <body>
 
-  <button id="envelope">📨 Abrir Cartinha</button>
+  <h2>Registrar Aluno</h2>
 
-  <div class="confetti" id="confettiContainer"></div>
+  <form id="form-aluno">
+    <label for="nome">Nome do Aluno:</label>
+    <input type="text" id="nome" required>
 
-  <div class="message-box" id="msgBox">
-    <img id="photo" src="" alt="Foto nossa">
-    <p id="messageText"></p>
-    <button id="nextBtn">➡ Próximo</button>
-  </div>
+    <label for="turma">Turma:</label>
+    <input type="text" id="turma" required>
 
-  <footer>💌 Com todo meu amor, só pra você 🌹</footer>
+    <label for="convidados">Quantos convidados?</label>
+    <select id="convidados" required>
+      <option value="">Selecione</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
 
-  <script>
-    const messages = [
-      "Hoje é seu dia, e eu só consigo pensar em como sou grato por ter você na minha vida.",
-      "Cada momento com você é um presente que o tempo me deu. Feliz Aniversário, meu amor!",
-      "Você me inspira, me acalma, me faz sorrir mesmo nos dias difíceis.",
-      "Se eu pudesse, guardaria todos os seus sorrisos num potinho. Mas prefiro vê-los ao vivo todos os dias.",
-      "Te amo mais do que palavras conseguem explicar. Feliz vida, minha flor. 🌷"
-    ];
+    <div id="campos-convidados"></div>
 
-    const images = [
-      "img1.jpeg",
-      "img2.jpeg",
-      "img3.jpeg",
-      "img4.jpeg",
-      "img5.jpeg"
-    ];
+    <button type="submit">Enviar</button>
+  </form>
 
-    const envelopeBtn = document.getElementById('envelope');
-    const msgBox = document.getElementById('msgBox');
-    const messageText = document.getElementById('messageText');
-    const nextBtn = document.getElementById('nextBtn');
-    const photo = document.getElementById('photo');
-    const confettiContainer = document.getElementById('confettiContainer');
+  <script type="module">
+    // Firebase import
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    let currentMsg = 0;
-
-    envelopeBtn.onclick = () => {
-      envelopeBtn.style.display = 'none';
-      msgBox.style.display = 'block';
-      showMessage();
-      startConfetti();
+    const firebaseConfig = {
+      apiKey: "AIzaSyCdpqzoR52k31x66FfreAFePsWHysVmeDI",
+      authDomain: "alunos-94699.firebaseapp.com",
+      databaseURL: "https://alunos-94699-default-rtdb.firebaseio.com",
+      projectId: "alunos-94699",
+      storageBucket: "alunos-94699.appspot.com",
+      messagingSenderId: "501341548930",
+      appId: "1:501341548930:web:476653e88c41d07d989f9b"
     };
 
-    nextBtn.onclick = () => {
-      currentMsg++;
-      if (currentMsg < messages.length) {
-        showMessage();
-      } else {
-        nextBtn.style.display = 'none';
-        messageText.textContent = "E que venham muitos aniversários ao seu lado. Te amo!";
-        photo.style.display = "none";
-      }
-    };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-    function showMessage() {
-      messageText.textContent = messages[currentMsg];
-      photo.src = images[currentMsg];
-      photo.style.display = "block";
-    }
+    // Mostrar campos de convidados dinamicamente
+    document.getElementById('convidados').addEventListener('change', function() {
+      const qtd = parseInt(this.value);
+      const container = document.getElementById('campos-convidados');
+      container.innerHTML = ''; // Limpa os anteriores
 
-    function startConfetti() {
-      for (let i = 0; i < 100; i++) {
-        const confetti = document.createElement('span');
-        confetti.style.setProperty('--hue', Math.floor(Math.random() * 360));
-        confetti.style.left = Math.random() * 100 + 'vw';
-        confetti.style.top = -Math.random() * 20 + 'px';
-        confetti.style.animationDelay = Math.random() * 3 + 's';
-        confettiContainer.appendChild(confetti);
+      for (let i = 1; i <= qtd; i++) {
+        const label = document.createElement('label');
+        label.textContent = `Nome do Convidado ${i}:`;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = `convidado${i}`;
+        input.required = true;
+        container.appendChild(label);
+        container.appendChild(input);
       }
-    }
+    });
+
+    // Enviar dados para o Firebase
+    document.getElementById('form-aluno').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value;
+      const turma = document.getElementById('turma').value;
+      const qtd = parseInt(document.getElementById('convidados').value);
+      const convidados = [];
+
+      for (let i = 1; i <= qtd; i++) {
+        const nomeConvidado = document.querySelector(`input[name=convidado${i}]`).value;
+        convidados.push(nomeConvidado);
+      }
+
+      const alunoRef = push(ref(db, 'alunos'));
+      set(alunoRef, {
+        nome,
+        turma,
+        convidados
+      }).then(() => {
+        alert('Aluno registrado com sucesso!');
+        document.getElementById('form-aluno').reset();
+        document.getElementById('campos-convidados').innerHTML = '';
+      }).catch((error) => {
+        alert('Erro ao registrar: ' + error.message);
+      });
+    });
   </script>
+
 </body>
 </html>
